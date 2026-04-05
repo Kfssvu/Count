@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Count</title>
+</head>
+<body align="center">
+
+    <!-- Difficulty Selection & Tutorial Section -->
+    <div id="intro-section">
+        <div id="difficulty-selection" style="margin-top: 30px;">
+            <h3>Choose Difficulty Level:</h3>
+            <button id="difficulty" onclick="startGame('easy')">Easy</button>
+            <button id="difficulty" onclick="startGame('medium')">Medium</button>
+            <button id="difficulty" onclick="startGame('hard')">Hard</button>
+        </div>
+        <div id = "tutorial">
+            <h2>How to Play</h2>
+            <div id="video-placeholder" class="video-placeholder">
+                <p>Tutorial Video Coming Soon</p>
+                <p style="font-size: 3em; color: #999;">▶ Video Player</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Section (Hidden Initially) -->
+    <div id="game-section" style="display: none;">
+        <div id="gameinfo" style="font-size: 1.2em; margin: 20px; font-weight: bold;">
+            <!-- Game info will display here -->
+        </div>
+
+        <div id="timer" style="margin: 20px auto;">
+            <svg id="timer-circle" width="120" height="120" viewBox="0 0 120 120" style="transform: rotate(-90deg);">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#e0e0e0" stroke-width="8"/>
+                <circle id="timer-progress" cx="60" cy="60" r="50" fill="none" stroke="#0066cc" stroke-width="8" stroke-dasharray="314.16 314.16" stroke-dashoffset="0" stroke-linecap="round"/>
+            </svg>
+            <div id="timer-text" style="position: absolute; transform: translate(-60px, -60px); font-size: 1.2em; font-weight: bold; color: #333;">
+                <!-- Timer text will display here -->
+            </div>
+        </div>
+
+        <div class="table" style="background-color: #e1d9d1; border-width: 50px; border-color: #dbcdc0; border-style:ridge ;">
+            <table align="center">
+                <tr id="buttonrow">
+                    <!-- Buttons will be generated here -->
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        <form id="user-answer" style="display: none;">
+            <input type="text" id="answerbox" placeholder="Enter Your Answer" disabled>
+            <button type="submit">Submit Answer</button>
+        </form>
+    </div>
+
+    <!-- Custom Alert Modal -->
+    <div id="alert-modal" style="display: none;">
+        <div id="alert-content" class="alert-content">
+            <p id="alert-message"></p>
+            <button id="alert-btn" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+
+    <script src="program.js"></script>
+</body>
+</html>
