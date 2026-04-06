@@ -266,3 +266,12 @@ input::placeholder{
     background-color: white;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .box {
+    height: 3vh;
+    width: 3vh;
+    border-radius: 50%;
+    background-color: white;
+    }
+}
