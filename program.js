@@ -36,7 +36,7 @@ const DIFFICULTY_SETTINGS = {
 };
 
 // Create button elements for display
-function createbutton(number = 0, isBlack = true) {
+function createbutton(number = 0, isBlack = true, mixed = false) {
     const row = document.getElementById("buttonrow");
     // Clear previous buttons
     while (row.firstChild) {
@@ -48,7 +48,11 @@ function createbutton(number = 0, isBlack = true) {
         const cell = document.createElement("td");
         const button = document.createElement("button");
         button.className = "box";
+        if (mixed) {
+            button.style.backgroundColor = Math.random() < 0.5 ? "black" : "white";
+        } else {
         button.style.backgroundColor = color;
+        }
         button.disabled = true;
         cell.appendChild(button);
         row.appendChild(cell);
@@ -143,6 +147,10 @@ function displayRound(number, isBlack) {
 
     // Show buttons
     createbutton(number, isBlack);
+    if (settings.name === 'Medium') {
+        // In medium mode, randomly mix black and white buttons
+        createbutton(number, isBlack, true);
+    }
     startCountdown(displayMs);
 
     // Clear buttons after displayMs and prompt for input

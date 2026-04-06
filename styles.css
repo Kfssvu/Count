@@ -11,9 +11,7 @@ body {
 table{
     margin-top: 5%;
     padding: 5%;
-
 }
-
 
 /* button{
     border-radius: 5px;
@@ -257,5 +255,14 @@ input::placeholder{
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .box {
+    height: 5vh;
+    width: 5vh;
+    border-radius: 50%;
+    background-color: white;
     }
 }
