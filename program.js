@@ -52,11 +52,20 @@ function createbutton(number = 0, isBlack = true, mixed = false) {
         const button = document.createElement("button");
         button.className = "box";
         if (mixed) {
-            color = Math.random() < 0.5 ? "black" : "white";
-            button.style.backgroundColor = color
+            // If score is currently 0, force black
+            if (gameState.answer + roundValue <= 0) {
+                color = "black";
+            } else {
+                color = Math.random() < 0.5 ? "black" : "white";
+            }
         } else {
-        button.style.backgroundColor = color;
+            if (!isBlack && gameState.answer <= 0) {
+                color = "black";
+            } else {
+                color = isBlack ? "black" : "white";
+            }
         }
+        button.style.backgroundColor = color;
         button.disabled = true;
         cell.appendChild(button);
         row.appendChild(cell);
