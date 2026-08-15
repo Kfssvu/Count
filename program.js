@@ -5,8 +5,9 @@ const gameState = {
     difficulty: 'easy',
     round: 0,
     answer: 0,
-    currentRoundNumber: 0,
-    currentRoundIsBlack: true,
+    // currentRoundNumber: 0,
+    // currentRoundIsBlack: true,
+    currentRoundValue: 0,
     displayTimer: null,
     countdownTimer: null
 };
@@ -38,25 +39,31 @@ const DIFFICULTY_SETTINGS = {
 // Create button elements for display
 function createbutton(number = 0, isBlack = true, mixed = false) {
     const row = document.getElementById("buttonrow");
+    let roundValue = 0;
     // Clear previous buttons
     while (row.firstChild) {
         row.removeChild(row.firstChild);
     }
-    const color = isBlack ? "black" : "white";
+    let color = isBlack ? "black" : "white";
 
     for (let i = 0; i < number; i++) {
+        let buttonIsBlack;
         const cell = document.createElement("td");
         const button = document.createElement("button");
         button.className = "box";
         if (mixed) {
-            button.style.backgroundColor = Math.random() < 0.5 ? "black" : "white";
+            color = Math.random() < 0.5 ? "black" : "white";
+            button.style.backgroundColor = color
         } else {
         button.style.backgroundColor = color;
         }
         button.disabled = true;
         cell.appendChild(button);
         row.appendChild(cell);
+        buttonIsBlack = (color == "black")
+        roundValue += buttonIsBlack ? 1 : -1;
     }
+    return roundValue;
 }
 
 // Update UI to show current game info
@@ -109,48 +116,39 @@ function setDifficultyButtonsDisabled(disabled) {
 function nextRound() {
     gameState.round++;
     updateGameInfo();
-
-    // Pick a random number 1-9 and operation
-    let randomnumber = Math.floor(Math.random() * 9) + 1;
-    let isBlack = Math.random() < 0.5;
-
-    // Prevent negative totals
-    if (!isBlack && randomnumber > gameState.answer) {
-        if (gameState.answer === 0) {
-            // Can't subtract, switch to add
-            isBlack = true;
-            randomnumber = Math.floor(Math.random() * 9) + 1;
-        } else {
-            // Reduce subtraction to current total
-            randomnumber = gameState.answer;
-        }
+     
+    const buttonCount = Math.floor(Math.random() * 9) + 1;
+     
+     
+    if (gameState.difficulty === "easy") {
+        displayRound(buttonCount, Math.random() < 0.5);
     }
-
-    // Store for display
-    gameState.currentRoundNumber = randomnumber;
-    gameState.currentRoundIsBlack = isBlack;
-
-    // Update running total
-    if (isBlack) {
-        gameState.answer += randomnumber;
-    } else {
-        gameState.answer -= randomnumber;
+    else {
+        // medium & hard
+       displayRound(buttonCount);
     }
-
-    displayRound(randomnumber, isBlack);
+    
+    return
+    
 }
 
 // Display buttons and set timer to clear them
 function displayRound(number, isBlack) {
     const settings = DIFFICULTY_SETTINGS[gameState.difficulty];
     const displayMs = settings.displayMs;
+    let roundValue
 
     // Show buttons
-    createbutton(number, isBlack);
-    if (settings.name === 'Medium') {
+    
+    if (isBlack === undefined) {
         // In medium mode, randomly mix black and white buttons
-        createbutton(number, isBlack, true);
+        roundValue = createbutton(number, isBlack, true);
     }
+    else {
+        roundValue = createbutton(number, isBlack);
+    }
+    gameState.currentRoundValue = roundValue;
+    gameState.answer += roundValue;
     startCountdown(displayMs);
 
     // Clear buttons after displayMs and prompt for input
