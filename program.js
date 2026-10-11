@@ -205,6 +205,11 @@ function displayRound(number, isBlack) {
 // Start game with chosen difficulty
 function startGame(difficulty) {
     if (gameState.running) return; // Prevent multiple simultaneous games
+    // Pause tutorial video if running
+    const vid = document.getElementById("tutorial-video");
+    if (vid && !vid.paused) {
+        vid.pause();
+    }
 
     gameState.running = true;
     gameState.gameover = false;

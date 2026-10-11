@@ -20,11 +20,13 @@
             <button id="difficulty" onclick="startGame('medium')">Medium</button>
             <button id="difficulty" onclick="startGame('hard')">Hard</button>
         </div>
-        <div id = "tutorial">
+        <div id="tutorial">
             <h2>How to Play</h2>
-            <div id="video-placeholder" class="video-placeholder">
-                <p>Tutorial Video Coming Soon</p>
-                <p style="font-size: 3em; color: #999;">▶ Video Player</p>
+            <div class="video-container">
+                <video id="tutorial-video" controls playsinline preload="metadata" poster="./tutorial-thumbnail.jpg">
+                    <source src="./tutorial.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </div>
@@ -69,6 +71,35 @@
         </div>
     </div>
 
+    <nav id="bar">
+    <div class="bar-left">
+        <span class="bar-title">Our partners:</span>
+        <a class="nav-item" href="https://dyllontjj.wixsite.com/dyta/" target="_blank" rel="noopener">
+            <img src="./D.jpg" alt="Dyta">
+        </a>
+        <a class="nav-item" href="https://myprr.com.my" target="_blank" rel="noopener">
+            <img src="./PRR logo.png" alt="PRR">
+        </a>
+    </div>
+    <div class="bar-right">
+        <!-- Update this link to your main landing page URL if needed -->
+        <a href="https://bndgames.com/" class="nav-link">Main Menu</a>
+    </div>
+    </nav>
+    
+    <!-- Inside each game's HTML: keep display: none inline so it is hidden by default -->
+    <div id="consent-popup" style="display: none;">
+        <span>
+            This site uses Google Analytics to understand how visitors interact. 
+            <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Learn more</a>.
+        </span>
+        <div class="consent-actions">
+            <button id="consent-accept" class="consent-button">Accept</button>
+            <button id="consent-reject" class="consent-button">Reject</button>
+        </div>
+    </div>
+
     <script src="program.js"></script>
+    <script src="GA.js"></script>
 </body>
 </html>

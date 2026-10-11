@@ -109,26 +109,27 @@ input::placeholder{
     color: #333;
 }
 
-.video-placeholder {
-    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
-    border: 3px dashed #ccc;
+/* Responsive Tutorial Video Wrapper */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 24px auto 36px auto;
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
-    padding: 80px 40px;
-    margin: 30px auto;
-    max-width: 600px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #666;
-    font-size: 1.2em;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    background-color: #000;
 }
 
-.video-placeholder p:first-child {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 20px;
+/* Covers both <video> and <iframe> */
+.video-container video,
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    object-fit: cover;
 }
 
 #difficulty{
@@ -274,4 +275,192 @@ input::placeholder{
     border-radius: 50%;
     background-color: white;
     }
+}
+
+/* =========================================================
+   UNIVERSAL PARTNER & NAV BAR
+   ========================================================= */
+
+/* Ensure the game canvas/controls don't get covered by the bottom bar */
+body {
+  padding-bottom: 110px !important;
+  box-sizing: border-box;
+}
+
+#bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 84px;
+  background-color: #161822;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 32px;
+  box-sizing: border-box;
+  z-index: 99999; /* Keeps it above canvas/gameboard layers */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#bar .bar-left, 
+#bar .bar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+#bar .bar-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ea8b6;
+  white-space: nowrap;
+}
+
+#bar .nav-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#bar .nav-item:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+#bar img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+#bar .nav-link {
+  color: #e2c082;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(226, 192, 130, 0.35);
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+#bar .nav-link:hover {
+  background-color: rgba(226, 192, 130, 0.12);
+  color: #f0cf95;
+}
+
+/* Mobile responsive collapse */
+@media screen and (max-width: 700px) {
+  body {
+    padding-bottom: 140px !important;
+  }
+
+  #bar {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+    min-height: auto;
+  }
+
+  #bar img {
+    width: 46px;
+    height: 46px;
+  }
+
+  #bar .bar-title {
+    font-size: 0.85rem;
+  }
+
+  #bar .nav-link {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+}
+
+/* Container: Floating dark card centered above the partner bar */
+#consent-popup {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 100px; /* Sits cleanly above the bottom navigation bar */
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 620px;
+  background-color: #1f232d; /* Calm slate matching the card tone */
+  color: #f5f6f8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Learn more link */
+#consent-popup a {
+  color: #e2c082; /* Warm champagne gold */
+  text-decoration: underline;
+}
+
+/* Button layout container */
+.consent-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* Shared button foundation */
+.consent-button {
+  border-radius: 8px;
+  padding: 9px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Accept button: Warm accent gold with dark text */
+#consent-accept {
+  background-color: #e2c082;
+  color: #12141a;
+}
+
+#consent-accept:hover {
+  background-color: #f0cf95;
+}
+
+/* Reject button: Ghost style with subtle border */
+#consent-reject {
+  background-color: transparent;
+  color: #9ea8b6;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#consent-reject:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f5f6f8;
+}
+
+/* Responsive adjustment for small mobile screens */
+@media screen and (max-width: 600px) {
+  #consent-popup {
+    bottom: 90px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+  }
 }
